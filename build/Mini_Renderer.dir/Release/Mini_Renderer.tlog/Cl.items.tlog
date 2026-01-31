@@ -1,9 +1,0 @@
-C:\Users\brand\CLionProjects\Mini-Renderer\src\geometry\Sphere.cpp;C:\Users\brand\CLionProjects\Mini-Renderer\build\Mini_Renderer.dir\Release\Sphere.obj
-C:\Users\brand\CLionProjects\Mini-Renderer\src\geometry\Triangle.cpp;C:\Users\brand\CLionProjects\Mini-Renderer\build\Mini_Renderer.dir\Release\Triangle.obj
-C:\Users\brand\CLionProjects\Mini-Renderer\src\geometry\Mesh.cpp;C:\Users\brand\CLionProjects\Mini-Renderer\build\Mini_Renderer.dir\Release\Mesh.obj
-C:\Users\brand\CLionProjects\Mini-Renderer\src\shading\Lambert.cpp;C:\Users\brand\CLionProjects\Mini-Renderer\build\Mini_Renderer.dir\Release\Lambert.obj
-C:\Users\brand\CLionProjects\Mini-Renderer\src\shading\Metal.cpp;C:\Users\brand\CLionProjects\Mini-Renderer\build\Mini_Renderer.dir\Release\Metal.obj
-C:\Users\brand\CLionProjects\Mini-Renderer\src\shading\Dielectric.cpp;C:\Users\brand\CLionProjects\Mini-Renderer\build\Mini_Renderer.dir\Release\Dielectric.obj
-C:\Users\brand\CLionProjects\Mini-Renderer\src\renderer\PathTracer.cpp;C:\Users\brand\CLionProjects\Mini-Renderer\build\Mini_Renderer.dir\Release\PathTracer.obj
-C:\Users\brand\CLionProjects\Mini-Renderer\src\main.cpp;C:\Users\brand\CLionProjects\Mini-Renderer\build\Mini_Renderer.dir\Release\main.obj
-C:\Users\brand\CLionProjects\Mini-Renderer\tests\intersection_tests.cpp;C:\Users\brand\CLionProjects\Mini-Renderer\build\Mini_Renderer.dir\Release\intersection_tests.obj

@@ -1,4 +1,0 @@
-C:/Users/brand/CLionProjects/Mini-Renderer/build/CMakeFiles/Mini_Renderer.dir
-C:/Users/brand/CLionProjects/Mini-Renderer/build/CMakeFiles/RUN_TESTS.dir
-C:/Users/brand/CLionProjects/Mini-Renderer/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/brand/CLionProjects/Mini-Renderer/build/CMakeFiles/ZERO_CHECK.dir
