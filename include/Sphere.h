@@ -13,7 +13,7 @@ public:
         double c = dot(oc, oc) - radius * radius;
 
         double discriminant = half_b * half_b - a * c;
-        if (discriminant > 0) return false;
+        if (discriminant < 0) return false;
         double sqrtd = std:: sqrt(discriminant);
 
         //find nearest root in range

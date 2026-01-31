@@ -31,6 +31,10 @@ inline double dot(const Vec3& a, const Vec3& b){
 }
 
 inline Vec3 normalize(const Vec3& v){
+    if (v.length() == 0 || !std::isfinite(v.length()))
+    {
+        return Vec3(0, 0, 0);
+    }
     return v / v.length();
 }
 inline double random_double()
