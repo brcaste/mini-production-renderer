@@ -28,7 +28,7 @@ add_executable(Mini_Renderer
         src/renderer/Integrator.h
         src/main.cpp
         tests/intersection_tests.cpp
-        include/Vec3.h
+        src/core/Vec3.h
 )
 
 target_include_directories(Mini_Renderer PRIVATE

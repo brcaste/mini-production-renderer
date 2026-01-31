@@ -1,0 +1,51 @@
+# ================================
+# Build artifacts (CMake)
+# ================================
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# ================================
+# CLion / JetBrains IDE
+# ================================
+.idea/
+*.iml
+
+# ================================
+# MinGW / GCC outputs
+# ================================
+*.exe
+*.dll
+*.a
+*.o
+*.obj
+*.pdb
+
+# ================================
+# Windows OS junk
+# ================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ================================
+# Render outputs (ignore for now)
+# ================================
+output/*.ppm
+output/*.png
+output/*.jpg
+
+# ================================
+# Logs
+# ================================
+*.log
+
+# ================================
+# VS Code
+# ================================
+.vscode/

@@ -48,6 +48,9 @@
     <ClInclude Include="C:\Users\brand\CLionProjects\Mini-Renderer\src\renderer\Integrator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\brand\CLionProjects\Mini-Renderer\src\core\Vec3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\brand\CLionProjects\Mini-Renderer\CMakeLists.txt" />
