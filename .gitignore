@@ -37,8 +37,6 @@ $RECYCLE.BIN/
 # Render outputs (ignore for now)
 # ================================
 output/*.ppm
-output/*.png
-output/*.jpg
 
 # ================================
 # Logs
