@@ -27,19 +27,42 @@ Vec3 ray_color(const Ray& r, const Hittable& world) {
     return (1.0 - a) * Vec3(1.0, 1.0, 1.0) + a * Vec3(0.5, 0.7, 1.0);
 }
 
+static double clamp01(double x)
+{
+    if (!isfinite(x)) return 0.0;
+    if (x < 0.0) return 0.0;
+    if (x > 0.999) return 0.999;
+    return x;
+}
+
 static int to_byte(double x){
-    if (!isfinite(x)) x = 0.0;
-    if (x < 0.0) x = 0;
-    if (x > 0.999) x = 0.999;
+    x = clamp01(x);
     return static_cast<int>(256.0*x);
+}
+
+static void write_color(ostream& out, const Vec3& pixel_color, int samples_per_pixel)
+{
+    //Average
+    double scale = 1.0 / samples_per_pixel;
+    double r = pixel_color.x * scale;
+    double g = pixel_color.y * scale;
+    double b = pixel_color.z * scale;
+
+    //gamma correction (gamma=2.0)
+    r = sqrt(clamp01(r));
+    g = sqrt(clamp01(g));
+    b = sqrt(clamp01(b));
+    out << to_byte(r) << ' ' << to_byte(g) << ' ' << to_byte(b) << endl;
 }
 
 int main()
 {
     const int WIDTH = 400;
     const int HEIGHT = 225;
+    const int SAMPLES_PER_PIXEL = 10;
+
     Camera cam(double(WIDTH) / HEIGHT);
-    const fs::path outPath = "output/sphere3.ppm";
+    const fs::path outPath = "output/sphere_with_aliasing.ppm";
     fs::create_directories(outPath.parent_path());
 
     HittableList world;
@@ -56,16 +79,16 @@ int main()
     out << "P3\n" << WIDTH << ' ' << HEIGHT << "\n255\n";
     for (int j = HEIGHT -1; j >= 0; --j){
         for (int i = 0; i < WIDTH; ++i){
-            double u = static_cast<double>(i) / (WIDTH - 1);
-            double v = static_cast<double>(j) / (HEIGHT - 1);
-            // if (i == WIDTH / 2 && (j == HEIGHT/2 || j == HEIGHT/2 + 20 || j == HEIGHT/2 - 20)) {
-            //     std::cout << "j=" << j << " v=" << v << "\n";
-            // }
-            Ray r = cam.get_ray(u, v);
-            Vec3 color = ray_color(r,world);
-            out << to_byte(color.x) << ' '
-            << to_byte(color.y) << ' '
-            << to_byte(color.z) << '\n';
+            Vec3 pixel_color = Vec3(0, 0, 0);
+            for (int s = 0; s < SAMPLES_PER_PIXEL; ++s)
+            {
+                double u = (i + random_double()) / (WIDTH - 1);
+                double v = (j + random_double()) / (HEIGHT - 1);
+                Ray r = cam.get_ray(u, v);
+                pixel_color += ray_color(r,world);
+            }
+
+            write_color(out, pixel_color, SAMPLES_PER_PIXEL);
         }
     }
     cout << "Wrote " << outPath << "\n";
