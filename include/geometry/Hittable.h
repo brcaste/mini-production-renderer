@@ -1,6 +1,6 @@
 #pragma once
-#include "Ray.h"
-#include "Vec3.h"
+#include "../core/Ray.h"
+#include "../core/Vec3.h"
 #include <memory>
 
 class Material;

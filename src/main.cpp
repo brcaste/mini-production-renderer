@@ -6,15 +6,15 @@
 #include <memory>
 #include <filesystem>
 
-#include "Lambertian.h"
-#include "Metal.h"
-#include "../include/Vec3.h"
-#include "../include/Ray.h"
-#include "../include/Camera.h"
-#include "../include/HittableList.h"
-#include "../include/Sphere.h"
-#include "../include/Hittable.h"
-#include "../include/Material.h"
+#include "../include/shading/Lambertian.h"
+#include "../include/shading/Metal.h"
+#include "../include/core/Vec3.h"
+#include "../include/core/Ray.h"
+#include "../include/core/Camera.h"
+#include "../include/geometry/HittableList.h"
+#include "../include/geometry/Sphere.h"
+#include "../include/geometry/Hittable.h"
+#include "../include/shading/Material.h"
 
 using namespace std;
 namespace fs = filesystem;

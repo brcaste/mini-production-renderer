@@ -1,5 +1,5 @@
 #pragma once
-#include "Camera.h"
+#include "../../include/core/Camera.h"
 
 Camera::Camera(double aspect_ratio, double viewport_height, double focal_length)
 {

@@ -1,7 +1,7 @@
 #pragma once
-#include "Ray.h"
-#include "Vec3.h"
-#include "Hittable.h"
+#include "../core/Ray.h"
+#include "../core/Vec3.h"
+#include "../geometry/Hittable.h"
 
 class Material
 {

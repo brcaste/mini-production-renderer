@@ -15,7 +15,7 @@ endif()
 add_executable(Mini_Renderer
         src/core/Intersection.h
         src/core/BVH.h
-        include/Sphere.h
+        include/geometry/Sphere.h
         src/geometry/Triangle.cpp
         src/geometry/Mesh.cpp
         src/shading/BSDF.h
@@ -27,11 +27,11 @@ add_executable(Mini_Renderer
         src/main.cpp
         tests/intersection_tests.cpp
         src/core/Camera.cpp
-        include/Hittable.h
-        include/HittableList.h
-        include/Material.h
-        include/Lambertian.h
-        include/Metal.h
+        include/geometry/Hittable.h
+        include/geometry/HittableList.h
+        include/shading/Material.h
+        include/shading/Lambertian.h
+        include/shading/Metal.h
 )
 
 target_include_directories(Mini_Renderer PRIVATE
