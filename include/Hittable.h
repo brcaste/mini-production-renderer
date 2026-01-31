@@ -1,12 +1,16 @@
 #pragma once
 #include "Ray.h"
 #include "Vec3.h"
+#include <memory>
+
+class Material;
 
 struct HitRecord {
   Vec3 p;   //hit point
   Vec3 normal; //surface normal
   double t;   //ray parameter at hit
   bool front_face;  //where we hit outside surface
+  std::shared_ptr<Material> mat;
 
   void set_face_normal(const Ray& r, const Vec3& outward_normal)
   {

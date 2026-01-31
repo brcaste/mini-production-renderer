@@ -6,20 +6,32 @@
 #include <memory>
 #include <filesystem>
 
+#include "Lambertian.h"
+#include "Metal.h"
 #include "../include/Vec3.h"
 #include "../include/Ray.h"
 #include "../include/Camera.h"
 #include "../include/HittableList.h"
 #include "../include/Sphere.h"
 #include "../include/Hittable.h"
+#include "../include/Material.h"
 
 using namespace std;
 namespace fs = filesystem;
 
-Vec3 ray_color(const Ray& r, const Hittable& world) {
+Vec3 ray_color(const Ray& r, const Hittable& world, int depth) {
+    if (depth <= 0) return Vec3(0, 0, 0);
+
     HitRecord rec;
     if (world.hit(r, 0.001, std::numeric_limits<double>::infinity(), rec)) {
-        return 0.5 * Vec3(rec.normal.x + 1.0, rec.normal.y + 1.0, rec.normal.z + 1.0);
+        Ray scattered;
+        Vec3 attenuation;
+        if (rec.mat && rec.mat->scatter(r, rec,attenuation, scattered))
+        {
+            return attenuation * ray_color(scattered, world, depth -1);
+        }
+       return Vec3(0, 0, 0);
+
     }
 
     Vec3 unit_dir = normalize(r.direction);
@@ -60,15 +72,19 @@ int main()
     const int WIDTH = 400;
     const int HEIGHT = 225;
     const int SAMPLES_PER_PIXEL = 10;
-
+    const int MAX_DEPTH = 10;
+    const fs::path outPath = "output/sphere_with_metal_scatter.ppm";
     Camera cam(double(WIDTH) / HEIGHT);
-    const fs::path outPath = "output/sphere_with_aliasing.ppm";
-    fs::create_directories(outPath.parent_path());
-
     HittableList world;
-    world.add(make_shared<Sphere>(Vec3(0,0,-1), 0.5));
-    world.add(make_shared<Sphere>(Vec3(0,-100.5,-1), 100.0));
+    auto ground_mat = make_shared<Lambertian>(Vec3(0.8,0.8,0.0));
+    auto center_mat = make_shared<Lambertian>(Vec3(0.1,0.2,0.5));
+    auto metal_mat = make_shared<Metal>(Vec3(0.8,0.6,0.2), 0.1);
+
+    world.add(make_shared<Sphere>(Vec3(0,-100.5,-1),100.0, ground_mat));
+    world.add(make_shared<Sphere>(Vec3(0,0,-1), 0.5, center_mat));
+    world.add(make_shared<Sphere>(Vec3(1,0,-1), 0.5, metal_mat));
     //PPM output header;
+    fs::create_directories(outPath.parent_path());
     ofstream out(outPath);
     if (!out)
     {
@@ -85,7 +101,7 @@ int main()
                 double u = (i + random_double()) / (WIDTH - 1);
                 double v = (j + random_double()) / (HEIGHT - 1);
                 Ray r = cam.get_ray(u, v);
-                pixel_color += ray_color(r,world);
+                pixel_color += ray_color(r,world,MAX_DEPTH);
             }
 
             write_color(out, pixel_color, SAMPLES_PER_PIXEL);

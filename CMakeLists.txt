@@ -29,6 +29,9 @@ add_executable(Mini_Renderer
         src/core/Camera.cpp
         include/Hittable.h
         include/HittableList.h
+        include/Material.h
+        include/Lambertian.h
+        include/Metal.h
 )
 
 target_include_directories(Mini_Renderer PRIVATE
