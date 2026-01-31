@@ -75,6 +75,6 @@ Depending on your generator, the executable location can differ.
 Example (Visual Studio multi-config):
 
 ## Output Screenshots 
-- `![Preview](output/sphere.png)`
-
+- ![Preview](output/sphere.png)
+- ![Preview](output/sphere_with_metal_scatter.png)
 
