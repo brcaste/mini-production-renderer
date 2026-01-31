@@ -1,5 +1,5 @@
 #pragma once
-#include "core/Vec3.h"
+#include "Vec3.h"
 struct Ray
 {
     Vec3 origin;

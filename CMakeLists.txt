@@ -13,10 +13,8 @@ else()
 endif()
 
 add_executable(Mini_Renderer
-        src/core/Ray.h
         src/core/Intersection.h
         src/core/BVH.h
-        src/core/Camera.h
         src/geometry/Sphere.cpp
         src/geometry/Triangle.cpp
         src/geometry/Mesh.cpp
@@ -28,7 +26,7 @@ add_executable(Mini_Renderer
         src/renderer/Integrator.h
         src/main.cpp
         tests/intersection_tests.cpp
-        src/core/Vec3.h
+        src/core/Camera.cpp
 )
 
 target_include_directories(Mini_Renderer PRIVATE
