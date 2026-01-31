@@ -1,6 +1,8 @@
 #pragma once
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <ostream>
+#include <random>
 
 struct Vec3
 {
@@ -31,6 +33,20 @@ inline double dot(const Vec3& a, const Vec3& b){
 inline Vec3 normalize(const Vec3& v){
     return v / v.length();
 }
+inline double random_double()
+{
+    static thread_local std::mt19937 gen(std::random_device{}());
+    static thread_local std::uniform_real_distribution<> dist(0.0, 1.0);
+    return dist(gen);
+}
+
+// inline Vec3 random_unit_vector()
+// {
+//     double a = 2 * M_PI * random_double();
+//     double z = 2* random_double() - 1;
+//     double r = std::sqrt(1- z* z);
+//     return Vec3(r * std::cos(a), r * std::sin(a), z);
+// }
 
 inline std::ostream& operator<<(std::ostream& os, const Vec3& v)
 {
