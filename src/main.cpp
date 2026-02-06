@@ -67,15 +67,54 @@ static void write_color(ostream& out, const Vec3& pixel_color, int samples_per_p
     out << to_byte(r) << ' ' << to_byte(g) << ' ' << to_byte(b) << endl;
 }
 
-int main()
+static bool get_arg_int(int argc, char** argv, const string& key, int& value)
 {
-    const int WIDTH = 400;
-    const int HEIGHT = 225;
-    const int SAMPLES_PER_PIXEL = 10;
-    const int MAX_DEPTH = 10;
-    const fs::path outPath = "output/sphere_with_metal_scatter.ppm";
-    Camera cam(double(WIDTH) / HEIGHT);
+    for (int i = 1; i + 1 < argc; ++i)
+    {
+        if (argv[i] == key)
+        {
+            value = stoi(argv[i+ 1]);
+            return true;
+        }
+    }
+    return false;
+}
+
+static bool get_arg_string(int argc, char** argv, const string& key, string& value)
+{
+    for (int i = 1; i + 1 < argc; ++i)
+    {
+        if (argv[i] == key)
+        {
+            value = argv[i + 1];
+            return true;
+        }
+    }
+    return false;
+}
+
+int main(int argc, char** argv)
+{
+    //presets
+    bool FINAL_RENDER = false; //flip when ready
+
+    int WIDTH =  FINAL_RENDER ? 800 : 400;
+    int aspect_ratio = 16.0 / 9.0;
+
+    int SAMPLES_PER_PIXEL = FINAL_RENDER ? 100 : 10;
+    int MAX_DEPTH = FINAL_RENDER ? 25 : 10;
+
+    string outPath = FINAL_RENDER ? "output/final.png" : "output/preview.jpg";
+
+    get_arg_int(argc, argv, "--width",WIDTH);
+    int HEIGHT = static_cast<int>(WIDTH/aspect_ratio );
+    get_arg_int(argc, argv, "--spp",SAMPLES_PER_PIXEL);
+    get_arg_int(argc, argv, "--depth",MAX_DEPTH);
+    get_arg_string(argc, argv, "--out", outPath);
+
+    Camera cam(aspect_ratio);
     HittableList world;
+
     auto ground_mat = make_shared<Lambertian>(Vec3(0.8,0.8,0.0));
     auto center_mat = make_shared<Lambertian>(Vec3(0.1,0.2,0.5));
     auto metal_mat = make_shared<Metal>(Vec3(0.8,0.6,0.2), 0.1);
@@ -83,8 +122,8 @@ int main()
     world.add(make_shared<Sphere>(Vec3(0,-100.5,-1),100.0, ground_mat));
     world.add(make_shared<Sphere>(Vec3(0,0,-1), 0.5, center_mat));
     world.add(make_shared<Sphere>(Vec3(1,0,-1), 0.5, metal_mat));
-    //PPM output header;
-    fs::create_directories(outPath.parent_path());
+
+   //ppm
     ofstream out(outPath);
     if (!out)
     {
@@ -94,6 +133,11 @@ int main()
 
     out << "P3\n" << WIDTH << ' ' << HEIGHT << "\n255\n";
     for (int j = HEIGHT -1; j >= 0; --j){
+        //progress indicator for long renders
+        // if (j % 20 == 0) {
+        //     double pct = 100.0 * (HEIGHT - 1 - j) / (HEIGHT - 1);
+        //     std::cout << "Progress: " << static_cast<int>(pct) << "%\n";
+        // }
         for (int i = 0; i < WIDTH; ++i){
             Vec3 pixel_color = Vec3(0, 0, 0);
             for (int s = 0; s < SAMPLES_PER_PIXEL; ++s)

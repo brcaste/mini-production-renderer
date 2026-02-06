@@ -67,7 +67,7 @@ cmake --build build --config Release
 ```
 Run
 ```bash 
-.\build\bin\Release\Mini_Renderer.exe
+.\build\bin\Release\Mini_Renderer.exe --width 500 --spp 15 --out test.png
 ```
 
 Depending on your generator, the executable location can differ.
